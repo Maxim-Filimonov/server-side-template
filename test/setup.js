@@ -22,9 +22,12 @@ global.TypeError = TypeError
 global.parseInt = parseInt
 global.parseFloat = parseFloat
 
-beforeAll(async () => {
-  await mockgoose(mongoose)
-  mongoose.connect(mongo.uri)
+beforeAll((done) => {
+  mockgoose(mongoose).then(() => {
+    mongoose.connect(mongo.uri, {}, done)
+  })
+  //await mockgoose(mongoose)
+  //mongoose.connect(mongo.uri)
 })
 
 afterAll(() => {
