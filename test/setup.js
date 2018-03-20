@@ -26,14 +26,14 @@ beforeAll(() => {
 })
 
 afterAll(() => {
-  mongoose.disconnect()
+  return mongoose.disconnect()
 })
 
-afterEach(async () => {
+afterEach(() => {
   const { collections } = mongoose.connection
   const promises = []
   Object.keys(collections).forEach((collection) => {
     promises.push(collections[collection].remove())
   })
-  await Promise.all(promises)
+  return Promise.all(promises)
 })
